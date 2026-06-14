@@ -14,7 +14,87 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          activity_level: string | null
+          age: number | null
+          budget: string | null
+          created_at: string
+          diet: string | null
+          email: string | null
+          environment: string | null
+          equipment: string[] | null
+          experience: string | null
+          fitness_score: number | null
+          gender: string | null
+          goal: string | null
+          height_cm: number | null
+          id: string
+          name: string | null
+          onboarded: boolean
+          plan: string
+          program: string | null
+          protein_pref: string | null
+          referral_code: string | null
+          target_timeline_weeks: number | null
+          target_weight_kg: number | null
+          updated_at: string
+          weight_kg: number | null
+        }
+        Insert: {
+          activity_level?: string | null
+          age?: number | null
+          budget?: string | null
+          created_at?: string
+          diet?: string | null
+          email?: string | null
+          environment?: string | null
+          equipment?: string[] | null
+          experience?: string | null
+          fitness_score?: number | null
+          gender?: string | null
+          goal?: string | null
+          height_cm?: number | null
+          id: string
+          name?: string | null
+          onboarded?: boolean
+          plan?: string
+          program?: string | null
+          protein_pref?: string | null
+          referral_code?: string | null
+          target_timeline_weeks?: number | null
+          target_weight_kg?: number | null
+          updated_at?: string
+          weight_kg?: number | null
+        }
+        Update: {
+          activity_level?: string | null
+          age?: number | null
+          budget?: string | null
+          created_at?: string
+          diet?: string | null
+          email?: string | null
+          environment?: string | null
+          equipment?: string[] | null
+          experience?: string | null
+          fitness_score?: number | null
+          gender?: string | null
+          goal?: string | null
+          height_cm?: number | null
+          id?: string
+          name?: string | null
+          onboarded?: boolean
+          plan?: string
+          program?: string | null
+          protein_pref?: string | null
+          referral_code?: string | null
+          target_timeline_weeks?: number | null
+          target_weight_kg?: number | null
+          updated_at?: string
+          weight_kg?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
