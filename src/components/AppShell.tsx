@@ -1,11 +1,10 @@
-import { Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
-import { Home, MessageCircle, Dumbbell, TrendingUp, User, Sparkles } from "lucide-react";
+import { Link, Outlet, useLocation } from "@tanstack/react-router";
+import { Home, Sparkle, Dumbbell, TrendingUp, User } from "lucide-react";
 import type { ReactNode } from "react";
-import { motion } from "framer-motion";
 
 const tabs = [
   { to: "/", label: "Home", icon: Home },
-  { to: "/coach", label: "Coach", icon: MessageCircle },
+  { to: "/coach", label: "Coach", icon: Sparkle },
   { to: "/train", label: "Train", icon: Dumbbell },
   { to: "/progress", label: "Progress", icon: TrendingUp },
   { to: "/profile", label: "Profile", icon: User },
@@ -13,49 +12,30 @@ const tabs = [
 
 export function AppShell({ children }: { children?: ReactNode }) {
   const { pathname } = useLocation();
-  const navigate = useNavigate();
 
   return (
-    <div className="relative mx-auto flex min-h-[100dvh] max-w-[480px] flex-col">
-      <main className="flex-1 pb-32">{children ?? <Outlet />}</main>
+    <div className="relative mx-auto flex min-h-[100dvh] max-w-[480px] flex-col bg-background">
+      <main className="flex-1 pb-28">{children ?? <Outlet />}</main>
 
-      {/* Floating AI button */}
-      <button
-        onClick={() => navigate({ to: "/coach" })}
-        aria-label="Open ATHLYT coach"
-        className="fixed bottom-20 left-1/2 z-50 -translate-x-1/2"
-      >
-        <span className="relative grid h-16 w-16 place-items-center rounded-full animate-pulse-ring"
-          style={{ background: "var(--gradient-fab)", boxShadow: "var(--shadow-glow-primary)" }}>
-          <Sparkles className="h-7 w-7 text-black" strokeWidth={2.5} />
-        </span>
-      </button>
-
-      {/* Bottom nav */}
-      <nav className="fixed bottom-3 left-1/2 z-40 w-[calc(100%-1.5rem)] max-w-[460px] -translate-x-1/2 glass rounded-full px-2 py-2">
-        <ul className="grid grid-cols-5">
-          {tabs.map((t, i) => {
+      <nav className="fixed bottom-0 left-1/2 z-40 w-full max-w-[480px] -translate-x-1/2 border-t border-border bg-background/85 backdrop-blur-2xl">
+        <ul className="grid grid-cols-5 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2">
+          {tabs.map((t) => {
             const active = pathname === t.to;
             const Icon = t.icon;
-            const isCenter = i === 2;
             return (
-              <li key={t.to} className="flex justify-center">
+              <li key={t.to}>
                 <Link
                   to={t.to}
-                  className={`relative flex h-12 w-12 flex-col items-center justify-center rounded-full transition ${isCenter ? "invisible" : ""}`}
+                  className="flex flex-col items-center gap-1 py-2"
                   aria-label={t.label}
                 >
-                  {active && (
-                    <motion.span
-                      layoutId="tab-active"
-                      className="absolute inset-0 rounded-full bg-primary/10"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
                   <Icon
-                    className={`relative h-5 w-5 transition ${active ? "text-primary" : "text-muted-foreground"}`}
-                    strokeWidth={active ? 2.5 : 2}
+                    className={`h-[22px] w-[22px] transition ${active ? "text-foreground" : "text-muted-foreground/70"}`}
+                    strokeWidth={active ? 2.4 : 1.8}
                   />
+                  <span className={`text-[10px] tracking-wide ${active ? "text-foreground" : "text-muted-foreground/70"}`}>
+                    {t.label}
+                  </span>
                 </Link>
               </li>
             );
