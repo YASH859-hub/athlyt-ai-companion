@@ -1,135 +1,150 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Flame, Droplets, Footprints, Beef, Timer, ChevronRight, Mic, Utensils, Zap } from "lucide-react";
+import { ArrowUpRight, Clock3, Sparkle } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
-import { MissionRing } from "@/components/MissionRing";
-import orb from "@/assets/athlyt-orb.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ATHLYT — Today's Mission" },
-      { name: "description", content: "Your personal AI coach for transformation." },
+      { title: "ATHLYT — Today" },
+      { name: "description", content: "Your personal AI transformation coach." },
     ],
   }),
   component: Home,
 });
 
-const stats = [
-  { icon: Timer, label: "Workout", value: "25", unit: "min", pct: 60 },
-  { icon: Beef, label: "Protein", value: "82", unit: "/120g", pct: 68 },
-  { icon: Footprints, label: "Steps", value: "5.4k", unit: "/8k", pct: 67 },
-  { icon: Droplets, label: "Hydration", value: "1.8", unit: "/3L", pct: 60 },
-];
-
-const quickActions = [
-  { label: "I only have 20 mins", icon: Zap },
-  { label: "Plan today's meals", icon: Utensils },
-  { label: "Generate workout", icon: Flame },
-  { label: "Track my food", icon: Mic },
+const suggestions = [
+  "I only have 20 minutes",
+  "Plan my meals",
+  "Adjust today's workout",
+  "Check my recovery",
 ];
 
 function Home() {
   return (
     <AppShell>
-      <div className="px-6 pt-14">
+      <div className="px-6 pt-16">
         {/* Greeting */}
         <motion.header
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex items-start justify-between"
+          transition={{ duration: 0.6 }}
         >
-          <div className="min-w-0">
-            <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Tuesday · Week 4</p>
-            <h1 className="mt-2 text-4xl font-semibold tracking-tight text-balance">
-              Good morning,<br />
-              <span className="shimmer">Om.</span>
-            </h1>
-          </div>
-          <img src={orb} alt="" width={56} height={56} className="h-14 w-14 shrink-0 animate-float-orb rounded-full" />
+          <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+            Tuesday · 06:48
+          </p>
+          <h1 className="mt-3 text-[40px] font-semibold leading-[1.05] tracking-tight">
+            Good morning,<br />Om.
+          </h1>
         </motion.header>
 
-        {/* AI insight */}
-        <motion.div
+        {/* Hero AI insight */}
+        <motion.section
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
-          className="mt-6 rounded-3xl border border-border bg-surface/60 p-5"
+          transition={{ delay: 0.1, duration: 0.6 }}
+          className="mt-10"
         >
-          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-primary">ATHLYT insight</p>
-          <p className="mt-2 text-lg font-medium leading-snug text-balance">
-            You're <span className="text-primary">3 workouts</span> away from your best month ever.
-          </p>
-        </motion.div>
-
-        {/* Mission */}
-        <section className="mt-8">
-          <div className="mb-4 flex items-end justify-between">
-            <div>
-              <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Today's Mission</p>
-              <h2 className="mt-1 text-2xl font-semibold">Build the streak</h2>
-            </div>
-            <span className="rounded-full bg-primary/15 px-3 py-1 text-xs font-semibold text-primary">+220 XP</span>
+          <div className="flex items-center gap-2">
+            <span className="grid h-5 w-5 place-items-center rounded-full bg-primary/15">
+              <Sparkle className="h-3 w-3 text-primary" strokeWidth={2.5} />
+            </span>
+            <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+              ATHLYT · Insight
+            </p>
           </div>
+          <p className="mt-4 text-[26px] font-medium leading-[1.2] tracking-tight text-balance text-foreground/95">
+            You're <span className="text-primary">2 workouts</span> away from your strongest month ever.
+          </p>
+        </motion.section>
 
-          <div
-            className="relative overflow-hidden rounded-[2rem] border border-border p-6"
-            style={{ backgroundImage: "var(--gradient-mission)" }}
-          >
-            <div className="flex items-center gap-6">
-              <MissionRing value={64} label="Complete" sub="3 / 4 goals" />
-              <div className="grid flex-1 gap-3">
-                {stats.map((s) => (
-                  <div key={s.label} className="flex items-center gap-3">
-                    <span className="grid h-9 w-9 place-items-center rounded-xl bg-white/5">
-                      <s.icon className="h-4 w-4 text-primary" />
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-baseline justify-between">
-                        <span className="text-xs uppercase tracking-wider text-muted-foreground">{s.label}</span>
-                        <span className="text-sm font-medium">
-                          {s.value}<span className="text-muted-foreground">{s.unit}</span>
-                        </span>
-                      </div>
-                      <div className="mt-1 h-1 overflow-hidden rounded-full bg-white/8">
-                        <div className="h-full rounded-full bg-primary" style={{ width: `${s.pct}%` }} />
-                      </div>
-                    </div>
-                  </div>
-                ))}
+        {/* Today's Focus — single primary action */}
+        <motion.section
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="mt-12"
+        >
+          <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+            Today's Focus
+          </p>
+
+          <div className="mt-4 overflow-hidden rounded-[28px] border border-border bg-surface">
+            <div className="relative h-56 overflow-hidden">
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(120% 80% at 80% 20%, rgba(139,92,246,0.32), transparent 60%), radial-gradient(80% 100% at 10% 100%, rgba(199,255,47,0.18), transparent 60%), #121212",
+                }}
+              />
+              <div className="absolute left-6 top-6">
+                <p className="text-[10px] uppercase tracking-[0.32em] text-white/60">
+                  Push Day
+                </p>
+                <p className="mt-2 text-3xl font-semibold tracking-tight">
+                  Chest & Triceps
+                </p>
+              </div>
+              <div className="absolute bottom-6 left-6 flex items-center gap-4 text-sm text-white/70">
+                <span className="inline-flex items-center gap-1.5">
+                  <Clock3 className="h-3.5 w-3.5" /> 25 min
+                </span>
+                <span>·</span>
+                <span>4 exercises</span>
+                <span>·</span>
+                <span>Level 3</span>
               </div>
             </div>
 
             <Link
               to="/train"
-              className="mt-6 flex items-center justify-between rounded-2xl bg-primary px-5 py-4 text-primary-foreground"
+              className="flex items-center justify-between gap-4 bg-primary px-6 py-5 text-primary-foreground transition active:scale-[0.99]"
             >
-              <span className="font-semibold">Start today's session</span>
-              <ChevronRight className="h-5 w-5" />
+              <span className="text-base font-semibold tracking-tight">
+                Start session
+              </span>
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-black/10">
+                <ArrowUpRight className="h-4 w-4" strokeWidth={2.5} />
+              </span>
             </Link>
           </div>
-        </section>
+        </motion.section>
 
-        {/* Quick actions */}
-        <section className="mt-10">
-          <div className="mb-3 flex items-center justify-between">
-            <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">Talk to ATHLYT</h3>
-            <Link to="/coach" className="text-xs font-medium text-primary">Open chat →</Link>
+        {/* Coach suggestions */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.35, duration: 0.6 }}
+          className="mt-12"
+        >
+          <div className="flex items-baseline justify-between">
+            <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+              Ask your coach
+            </p>
+            <Link to="/coach" className="text-xs text-muted-foreground">
+              Open →
+            </Link>
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            {quickActions.map((a) => (
-              <Link
-                key={a.label}
-                to="/coach"
-                className="group rounded-2xl border border-border bg-surface/60 p-4 transition active:scale-[0.98]"
-              >
-                <a.icon className="h-5 w-5 text-primary" />
-                <p className="mt-3 text-sm font-medium leading-snug text-balance">{a.label}</p>
-              </Link>
+
+          <ul className="mt-4 divide-y divide-border rounded-3xl border border-border bg-surface/60">
+            {suggestions.map((s) => (
+              <li key={s}>
+                <Link
+                  to="/coach"
+                  className="flex items-center justify-between px-5 py-4 transition active:bg-white/[0.03]"
+                >
+                  <span className="text-[15px] text-foreground/90">{s}</span>
+                  <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
+                </Link>
+              </li>
             ))}
-          </div>
-        </section>
+          </ul>
+        </motion.section>
+
+        <p className="mt-12 text-center text-[10px] uppercase tracking-[0.32em] text-muted-foreground/60">
+          Stay present · Move with intent
+        </p>
       </div>
     </AppShell>
   );
