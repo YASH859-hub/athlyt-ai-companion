@@ -1,102 +1,114 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Trophy, Flame, Dumbbell, Heart } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 
 export const Route = createFileRoute("/progress")({
-  head: () => ({ meta: [{ title: "ATHLYT — Transformation" }, { name: "description", content: "Your transformation timeline." }] }),
+  head: () => ({
+    meta: [
+      { title: "ATHLYT — Transformation" },
+      { name: "description", content: "Your transformation journey." },
+    ],
+  }),
   component: Progress,
 });
 
-const milestones = [
-  { week: "Week 1", title: "First session logged", body: "The hardest rep is the first one." },
-  { week: "Week 2", title: "Hit protein goal 5×", body: "Consistency unlocked." },
-  { week: "Week 3", title: "+8% bench strength", body: "Your body is adapting." },
-  { week: "Week 4", title: "Disciplined — Level 3", body: "You're becoming someone new." },
+const timeline = [
+  { week: "Week 1", title: "The first rep", body: "You showed up. That's the rep that counts.", weight: "76.4 kg", state: "past" },
+  { week: "Week 4", title: "Disciplined", body: "+8% bench. Resting HR down 4 bpm.", weight: "75.1 kg", state: "current" },
+  { week: "Week 8", title: "Athlete", body: "Bodyweight pull-ups, unbroken.", weight: "—", state: "future" },
+  { week: "Week 12", title: "A new baseline", body: "Composition shift visible.", weight: "—", state: "future" },
 ];
 
 const trends = [
-  { icon: Dumbbell, label: "Strength", value: "+12%", tone: "text-primary" },
-  { icon: Heart, label: "Resting HR", value: "−4 bpm", tone: "text-primary" },
-  { icon: Flame, label: "Weight", value: "−2.4 kg", tone: "text-primary" },
+  { label: "Strength", value: "+12%" },
+  { label: "Resting HR", value: "−4" },
+  { label: "Weight", value: "−1.3" },
 ];
 
 function Progress() {
   return (
     <AppShell>
-      <div className="px-6 pt-12">
+      <div className="px-6 pt-16">
         <header>
-          <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Your transformation</p>
-          <h1 className="mt-2 text-4xl font-semibold tracking-tight">28 days in.<br /><span className="text-muted-foreground">A new chapter.</span></h1>
+          <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+            28 days in
+          </p>
+          <h1 className="mt-3 text-[40px] font-semibold leading-[1.05] tracking-tight">
+            You are becoming<br />
+            <span className="text-muted-foreground">someone new.</span>
+          </h1>
         </header>
 
         {/* Level */}
-        <motion.div
+        <motion.section
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-6 overflow-hidden rounded-3xl border border-border p-5"
-          style={{ backgroundImage: "var(--gradient-mission)" }}
+          className="mt-10 rounded-[28px] border border-border bg-surface p-6"
         >
-          <div className="flex items-center gap-3">
-            <span className="grid h-11 w-11 place-items-center rounded-2xl bg-primary text-primary-foreground">
-              <Trophy className="h-5 w-5" />
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="text-xs uppercase tracking-wider text-muted-foreground">Level 3</p>
-              <p className="text-lg font-semibold">Disciplined</p>
-            </div>
-            <p className="text-sm font-medium text-primary">2,140 / 3,000 XP</p>
+          <div className="flex items-baseline justify-between">
+            <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+              Level 3
+            </p>
+            <p className="text-[11px] text-muted-foreground">2,140 / 3,000 XP</p>
           </div>
-          <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/8">
-            <div className="h-full rounded-full bg-primary" style={{ width: "71%" }} />
+          <p className="mt-3 text-3xl font-semibold tracking-tight">Disciplined</p>
+          <div className="mt-5 h-1 overflow-hidden rounded-full bg-white/6">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "71%" }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="h-full rounded-full bg-primary"
+            />
           </div>
-          <p className="mt-3 text-xs text-muted-foreground">860 XP to <span className="text-foreground">Athlete</span></p>
-        </motion.div>
+          <p className="mt-3 text-xs text-muted-foreground">
+            860 XP to <span className="text-foreground">Athlete</span>
+          </p>
+        </motion.section>
 
-        {/* Before / After */}
-        <section className="mt-8">
-          <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">Visual progress</h3>
-          <div className="mt-3 grid grid-cols-2 gap-3">
-            {["Day 1", "Day 28"].map((label, i) => (
-              <div key={label} className="relative aspect-[3/4] overflow-hidden rounded-3xl border border-border"
-                style={{ background: i === 0
-                  ? "linear-gradient(180deg, #1a1a1a, #0B0B0B)"
-                  : "linear-gradient(180deg, rgba(198,255,45,0.18), rgba(139,92,246,0.18), #0B0B0B)" }}>
-                <div className="absolute inset-x-4 bottom-4">
-                  <p className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">{label}</p>
-                  <p className="text-base font-semibold">{i === 0 ? "76.4 kg" : "74.0 kg"}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Trends */}
-        <section className="mt-8 grid grid-cols-3 gap-3">
+        {/* Trends — minimal */}
+        <section className="mt-8 grid grid-cols-3 gap-px overflow-hidden rounded-[24px] border border-border bg-border">
           {trends.map((t) => (
-            <div key={t.label} className="rounded-2xl border border-border bg-surface/60 p-4">
-              <t.icon className="h-4 w-4 text-muted-foreground" />
-              <p className={`mt-3 text-lg font-semibold ${t.tone}`}>{t.value}</p>
-              <p className="text-[11px] uppercase tracking-wider text-muted-foreground">{t.label}</p>
+            <div key={t.label} className="bg-background p-5">
+              <p className="text-2xl font-semibold tracking-tight">{t.value}</p>
+              <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                {t.label}
+              </p>
             </div>
           ))}
         </section>
 
         {/* Timeline */}
-        <section className="mt-10">
-          <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">Timeline</h3>
-          <ol className="mt-4 relative">
-            <span className="absolute left-[7px] top-1 bottom-1 w-px bg-border" />
-            {milestones.map((m, i) => (
-              <li key={i} className="relative pl-7 pb-6 last:pb-0">
-                <span className="absolute left-0 top-1.5 grid h-4 w-4 place-items-center rounded-full bg-primary">
-                  <span className="h-1.5 w-1.5 rounded-full bg-black" />
-                </span>
-                <p className="text-[11px] uppercase tracking-wider text-muted-foreground">{m.week}</p>
-                <p className="mt-0.5 font-semibold">{m.title}</p>
-                <p className="text-sm text-muted-foreground">{m.body}</p>
-              </li>
-            ))}
+        <section className="mt-12">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+            Transformation timeline
+          </p>
+          <ol className="relative mt-6">
+            <span className="absolute left-[5px] top-2 bottom-2 w-px bg-border" />
+            {timeline.map((m, i) => {
+              const active = m.state === "current";
+              const future = m.state === "future";
+              return (
+                <li key={i} className="relative pb-10 pl-7 last:pb-0">
+                  <span
+                    className={`absolute left-0 top-2 h-2.5 w-2.5 rounded-full ${
+                      active ? "bg-primary ring-4 ring-primary/20" : future ? "bg-white/15" : "bg-foreground"
+                    }`}
+                  />
+                  <p className={`text-[11px] uppercase tracking-[0.28em] ${active ? "text-primary" : "text-muted-foreground"}`}>
+                    {m.week}
+                  </p>
+                  <p className={`mt-1 text-xl font-semibold tracking-tight ${future ? "text-muted-foreground" : ""}`}>
+                    {m.title}
+                  </p>
+                  <p className="mt-1 text-sm text-muted-foreground">{m.body}</p>
+                  {m.weight !== "—" && (
+                    <p className="mt-2 text-[11px] uppercase tracking-wider text-muted-foreground">
+                      {m.weight}
+                    </p>
+                  )}
+                </li>
+              );
+            })}
           </ol>
         </section>
       </div>
