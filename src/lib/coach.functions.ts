@@ -2,7 +2,9 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
 const Input = z.object({
-  messages: z.array(z.object({ role: z.enum(["user", "assistant", "system"]), content: z.string() })),
+  messages: z.array(
+    z.object({ role: z.enum(["user", "assistant", "system"]), content: z.string() }),
+  ),
   profile: z
     .object({
       name: z.string().nullable().optional(),
@@ -14,7 +16,7 @@ const Input = z.object({
 });
 
 export const askCoach = createServerFn({ method: "POST" })
-  .inputValidator((d: unknown) => Input.parse(d))
+  .validator(Input)
   .handler(async ({ data }) => {
     const key = process.env.LOVABLE_API_KEY;
     if (!key) throw new Error("Missing LOVABLE_API_KEY");
@@ -38,8 +40,16 @@ User profile: ${JSON.stringify(data.profile ?? {})}.`;
       }),
     });
 
-    if (res.status === 429) return { text: "I'm getting a lot of requests right now — try again in a moment.", error: "rate_limit" };
-    if (res.status === 402) return { text: "AI credits are exhausted. Please add credits to keep coaching.", error: "no_credits" };
+    if (res.status === 429)
+      return {
+        text: "I'm getting a lot of requests right now — try again in a moment.",
+        error: "rate_limit",
+      };
+    if (res.status === 402)
+      return {
+        text: "AI credits are exhausted. Please add credits to keep coaching.",
+        error: "no_credits",
+      };
     if (!res.ok) return { text: "Coach is offline for a second. Try again.", error: "unknown" };
 
     const json = (await res.json()) as { choices?: { message?: { content?: string } }[] };

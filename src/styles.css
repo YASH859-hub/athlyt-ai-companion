@@ -46,10 +46,10 @@
   --radius: 1.25rem;
 
   /* Matte deep black */
-  --background: oklch(0.115 0 0);              /* #090909 */
+  --background: oklch(0.115 0 0); /* #090909 */
   --foreground: oklch(1 0 0);
 
-  --surface: oklch(0.155 0 0);                 /* #121212 */
+  --surface: oklch(0.155 0 0); /* #121212 */
   --surface-elevated: oklch(0.195 0 0);
 
   --card: oklch(0.155 0 0);
@@ -65,11 +65,11 @@
   --secondary: oklch(0.62 0.21 295);
   --secondary-foreground: oklch(1 0 0);
 
-  --success: oklch(0.78 0.17 162);             /* #34D399 */
-  --warning: oklch(0.78 0.16 75);              /* #F59E0B */
+  --success: oklch(0.78 0.17 162); /* #34D399 */
+  --warning: oklch(0.78 0.16 75); /* #F59E0B */
 
   --muted: oklch(0.2 0 0);
-  --muted-foreground: oklch(0.7 0 0);          /* #A1A1AA */
+  --muted-foreground: oklch(0.7 0 0); /* #A1A1AA */
 
   --accent: oklch(0.62 0.21 295);
   --accent-foreground: oklch(1 0 0);
@@ -88,7 +88,9 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  html, body, #app {
+  html,
+  body,
+  #app {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
@@ -100,7 +102,10 @@
     overscroll-behavior-y: none;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     letter-spacing: -0.03em;
     font-weight: 600;
@@ -116,13 +121,29 @@
 }
 
 @keyframes float-soft {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
 }
 @keyframes breath {
-  0%, 100% { opacity: 0.55; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.05); }
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
 }
 
-.animate-float-soft { animation: float-soft 5s ease-in-out infinite; }
-.animate-breath { animation: breath 3.4s ease-in-out infinite; }
+.animate-float-soft {
+  animation: float-soft 5s ease-in-out infinite;
+}
+.animate-breath {
+  animation: breath 3.4s ease-in-out infinite;
+}

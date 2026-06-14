@@ -40,7 +40,14 @@ export type CoachMessage = {
 
 export type Achievement = { id: string; title: string; unlockedAt: number };
 export type WeightEntry = { date: string; kg: number };
-export type SessionLog = { id: string; workoutId: string; name: string; at: number; duration: number; xp: number };
+export type SessionLog = {
+  id: string;
+  workoutId: string;
+  name: string;
+  at: number;
+  duration: number;
+  xp: number;
+};
 
 type AppState = {
   // Targets (derived from onboarding, with sensible defaults)
@@ -81,9 +88,27 @@ type AppState = {
 const today = () => new Date().toISOString().slice(0, 10);
 
 const seedNotifications = [
-  { id: "n1", title: "Time to train", body: "Your Push Day is ready.", at: Date.now() - 1000 * 60 * 60 * 2, read: false },
-  { id: "n2", title: "Hydration check", body: "You're behind on water today.", at: Date.now() - 1000 * 60 * 60 * 5, read: false },
-  { id: "n3", title: "Coach insight", body: "Your recovery score is up 12%.", at: Date.now() - 1000 * 60 * 60 * 22, read: true },
+  {
+    id: "n1",
+    title: "Time to train",
+    body: "Your Push Day is ready.",
+    at: Date.now() - 1000 * 60 * 60 * 2,
+    read: false,
+  },
+  {
+    id: "n2",
+    title: "Hydration check",
+    body: "You're behind on water today.",
+    at: Date.now() - 1000 * 60 * 60 * 5,
+    read: false,
+  },
+  {
+    id: "n3",
+    title: "Coach insight",
+    body: "Your recovery score is up 12%.",
+    at: Date.now() - 1000 * 60 * 60 * 22,
+    read: true,
+  },
 ];
 
 const seedAchievements: Achievement[] = [
@@ -136,7 +161,11 @@ export const useApp = create<AppState>()(
         const t = get().today;
         set({
           meals: get().meals.filter((x) => x.id !== id),
-          today: { ...t, kcalIn: Math.max(0, t.kcalIn - meal.kcal), proteinIn: Math.max(0, t.proteinIn - meal.protein) },
+          today: {
+            ...t,
+            kcalIn: Math.max(0, t.kcalIn - meal.kcal),
+            proteinIn: Math.max(0, t.proteinIn - meal.protein),
+          },
         });
       },
 
@@ -156,13 +185,29 @@ export const useApp = create<AppState>()(
         const newLevel = Math.floor(newXp / 500) + 1;
         set({
           today: { ...t, workoutDone: true },
-          sessions: [{ id: crypto.randomUUID(), workoutId: w.id, name: w.name, at: Date.now(), duration: w.duration, xp: xpGain }, ...get().sessions].slice(0, 100),
+          sessions: [
+            {
+              id: crypto.randomUUID(),
+              workoutId: w.id,
+              name: w.name,
+              at: Date.now(),
+              duration: w.duration,
+              xp: xpGain,
+            },
+            ...get().sessions,
+          ].slice(0, 100),
           streak: newStreak,
           lastActiveDate: today2,
           xp: newXp,
           level: newLevel,
           notifications: [
-            { id: crypto.randomUUID(), title: "Workout complete", body: `+${xpGain} XP from ${w.name}`, at: Date.now(), read: false },
+            {
+              id: crypto.randomUUID(),
+              title: "Workout complete",
+              body: `+${xpGain} XP from ${w.name}`,
+              at: Date.now(),
+              read: false,
+            },
             ...get().notifications,
           ],
         });
@@ -180,7 +225,8 @@ export const useApp = create<AppState>()(
 
       clearMessages: () => set({ messages: [] }),
 
-      markNotificationsRead: () => set({ notifications: get().notifications.map((n) => ({ ...n, read: true })) }),
+      markNotificationsRead: () =>
+        set({ notifications: get().notifications.map((n) => ({ ...n, read: true })) }),
 
       rollDayIfNeeded: () => {
         const t = get().today;
@@ -190,7 +236,16 @@ export const useApp = create<AppState>()(
         }
       },
 
-      reset: () => set({ meals: [], sessions: [], messages: [], notifications: [], xp: 0, level: 1, streak: 0 }),
+      reset: () =>
+        set({
+          meals: [],
+          sessions: [],
+          messages: [],
+          notifications: [],
+          xp: 0,
+          level: 1,
+          streak: 0,
+        }),
     }),
     { name: "athlyt-app-v1" },
   ),

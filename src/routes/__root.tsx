@@ -20,7 +20,9 @@ function NotFoundComponent() {
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">Lost the trail</h2>
-        <p className="mt-2 text-sm text-muted-foreground">This path isn't part of your journey yet.</p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          This path isn't part of your journey yet.
+        </p>
         <div className="mt-6">
           <Link
             to="/"
@@ -44,11 +46,18 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">Something broke your rhythm</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Take a breath. We'll pick this back up.</p>
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">
+          Something broke your rhythm
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Take a breath. We'll pick this back up.
+        </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
-            onClick={() => { router.invalidate(); reset(); }}
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
             className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
           >
             Try again
@@ -66,15 +75,35 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { name: "theme-color", content: "#0B0B0B" },
       { title: "ATHLYT — Your AI transformation coach" },
-      { name: "description", content: "ATHLYT is an AI fitness and nutrition coach designed for transformation, not tracking." },
+      {
+        name: "description",
+        content:
+          "ATHLYT is an AI fitness and nutrition coach designed for transformation, not tracking.",
+      },
       { property: "og:title", content: "ATHLYT — Your AI transformation coach" },
-      { property: "og:description", content: "ATHLYT is an AI fitness and nutrition coach designed for transformation, not tracking." },
+      {
+        property: "og:description",
+        content:
+          "ATHLYT is an AI fitness and nutrition coach designed for transformation, not tracking.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "ATHLYT — Your AI transformation coach" },
-      { name: "twitter:description", content: "ATHLYT is an AI fitness and nutrition coach designed for transformation, not tracking." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/10a8dbef-cdd0-40dc-9ee4-ca15b2ac64ad/id-preview-16703ea2--047bd07a-fdce-4bd9-a5ee-a713f1996eaf.lovable.app-1781413083120.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/10a8dbef-cdd0-40dc-9ee4-ca15b2ac64ad/id-preview-16703ea2--047bd07a-fdce-4bd9-a5ee-a713f1996eaf.lovable.app-1781413083120.png" },
+      {
+        name: "twitter:description",
+        content:
+          "ATHLYT is an AI fitness and nutrition coach designed for transformation, not tracking.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/10a8dbef-cdd0-40dc-9ee4-ca15b2ac64ad/id-preview-16703ea2--047bd07a-fdce-4bd9-a5ee-a713f1996eaf.lovable.app-1781413083120.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/10a8dbef-cdd0-40dc-9ee4-ca15b2ac64ad/id-preview-16703ea2--047bd07a-fdce-4bd9-a5ee-a713f1996eaf.lovable.app-1781413083120.png",
+      },
     ],
     links: [{ rel: "stylesheet", href: appCss }],
   }),
@@ -107,7 +136,9 @@ function RootComponent() {
       router.invalidate();
       if (event !== "SIGNED_OUT") queryClient.invalidateQueries();
     });
-    return () => { data.subscription.unsubscribe(); };
+    return () => {
+      data.subscription.unsubscribe();
+    };
   }, [router, queryClient]);
   return (
     <QueryClientProvider client={queryClient}>

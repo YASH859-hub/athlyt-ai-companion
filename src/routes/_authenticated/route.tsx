@@ -19,7 +19,11 @@ function AuthedLayout() {
 
   useEffect(() => {
     const check = async () => {
-      const { data } = await supabase.from("profiles").select("onboarded").eq("id", user.id).maybeSingle();
+      const { data } = await supabase
+        .from("profiles")
+        .select("onboarded")
+        .eq("id", user.id)
+        .maybeSingle();
       if (!data?.onboarded && window.location.pathname !== "/onboarding") {
         navigate({ to: "/onboarding" });
       }

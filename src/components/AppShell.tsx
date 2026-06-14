@@ -24,12 +24,20 @@ export function AppShell({ children }: { children?: ReactNode }) {
             const Icon = t.icon;
             return (
               <li key={t.to}>
-                <Link to={t.to} className="flex flex-col items-center gap-1 py-2" aria-label={t.label}>
+                <Link
+                  to={t.to}
+                  className="flex flex-col items-center gap-1 py-2"
+                  aria-label={t.label}
+                >
                   <Icon
                     className={`h-[22px] w-[22px] transition ${active ? "text-foreground" : "text-muted-foreground/70"}`}
                     strokeWidth={active ? 2.4 : 1.8}
                   />
-                  <span className={`text-[10px] tracking-wide ${active ? "text-foreground" : "text-muted-foreground/70"}`}>{t.label}</span>
+                  <span
+                    className={`text-[10px] tracking-wide ${active ? "text-foreground" : "text-muted-foreground/70"}`}
+                  >
+                    {t.label}
+                  </span>
                 </Link>
               </li>
             );

@@ -28,11 +28,22 @@ function Reset() {
       <h1 className="text-[34px] font-semibold tracking-tight">Set a new password</h1>
       <form onSubmit={submit} className="mt-10 space-y-4">
         <label className="block">
-          <span className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">New password</span>
-          <input type="password" required minLength={6} value={pw} onChange={(e) => setPw(e.target.value)}
-            className="mt-2 w-full rounded-2xl border border-border bg-surface px-4 py-4 text-[15px] outline-none focus:border-foreground/40" />
+          <span className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+            New password
+          </span>
+          <input
+            type="password"
+            required
+            minLength={6}
+            value={pw}
+            onChange={(e) => setPw(e.target.value)}
+            className="mt-2 w-full rounded-2xl border border-border bg-surface px-4 py-4 text-[15px] outline-none focus:border-foreground/40"
+          />
         </label>
-        <button disabled={loading} className="w-full rounded-full bg-primary py-4 text-[15px] font-semibold text-primary-foreground disabled:opacity-60">
+        <button
+          disabled={loading}
+          className="w-full rounded-full bg-primary py-4 text-[15px] font-semibold text-primary-foreground disabled:opacity-60"
+        >
           {loading ? "Updating…" : "Update password"}
         </button>
       </form>
