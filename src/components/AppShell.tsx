@@ -1,13 +1,13 @@
 import { Link, Outlet, useLocation } from "@tanstack/react-router";
-import { Home, Sparkle, Dumbbell, TrendingUp, User } from "lucide-react";
+import { Home, Sparkle, Dumbbell, Apple, User } from "lucide-react";
 import type { ReactNode } from "react";
 
 const tabs = [
   { to: "/", label: "Home", icon: Home },
   { to: "/coach", label: "Coach", icon: Sparkle },
   { to: "/train", label: "Train", icon: Dumbbell },
-  { to: "/progress", label: "Progress", icon: TrendingUp },
-  { to: "/profile", label: "Profile", icon: User },
+  { to: "/nutrition", label: "Eat", icon: Apple },
+  { to: "/profile", label: "You", icon: User },
 ] as const;
 
 export function AppShell({ children }: { children?: ReactNode }) {
@@ -24,18 +24,12 @@ export function AppShell({ children }: { children?: ReactNode }) {
             const Icon = t.icon;
             return (
               <li key={t.to}>
-                <Link
-                  to={t.to}
-                  className="flex flex-col items-center gap-1 py-2"
-                  aria-label={t.label}
-                >
+                <Link to={t.to} className="flex flex-col items-center gap-1 py-2" aria-label={t.label}>
                   <Icon
                     className={`h-[22px] w-[22px] transition ${active ? "text-foreground" : "text-muted-foreground/70"}`}
                     strokeWidth={active ? 2.4 : 1.8}
                   />
-                  <span className={`text-[10px] tracking-wide ${active ? "text-foreground" : "text-muted-foreground/70"}`}>
-                    {t.label}
-                  </span>
+                  <span className={`text-[10px] tracking-wide ${active ? "text-foreground" : "text-muted-foreground/70"}`}>{t.label}</span>
                 </Link>
               </li>
             );
